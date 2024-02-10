@@ -1,12 +1,19 @@
+import { Paper } from '@mantine/core'
 import { useState } from 'react'
-import { SignInModal } from '../components'
+import { SignInModal, TopBar } from '../components'
 
 export const Root = () => {
 	const [user, setUser] = useState('')
 	return (
-		<>
-			<div>In Pr👹ss, {user}</div>
+		<Paper style={sideBars}>
+			<TopBar user={user} />
 			<SignInModal isOpen={!user} setUser={setUser} />
-		</>
+		</Paper>
 	)
+}
+
+const sideBars = {
+	background: 'black',
+	height: '100vh',
+	padding: '0 120px',
 }
