@@ -1,11 +1,16 @@
-import 'normalize.css'
-import '@mantine/core/styles.css'
 import { MantineProvider } from '@mantine/core'
+import '@mantine/core/styles.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ErrorPage, Root } from './pages'
+
+const router = createBrowserRouter([
+	{ path: '/', element: <Root />, errorElement: <ErrorPage /> },
+])
 
 function App() {
 	return (
-		<MantineProvider>
-			<div>In Pr👹ss</div>
+		<MantineProvider defaultColorScheme='dark'>
+			<RouterProvider router={router} />
 		</MantineProvider>
 	)
 }
