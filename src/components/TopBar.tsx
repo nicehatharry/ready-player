@@ -1,17 +1,15 @@
-import { Space, Group, Avatar } from '@mantine/core'
+import { Group, Space } from '@mantine/core'
 import { FC } from 'react'
+import { LogOutButton } from '.'
 
-export const TopBar: FC<{ user: string }> = ({ user }) => {
+export const TopBar: FC = () => {
 	return (
 		<>
 			<Space h='md' style={crown} />
 			<Group justify='space-between' style={topBar}>
-				<img src='src/assets/fox icon.png' height='60px' />
+				<img src='src/assets/fox icon.png' height='40px' />
 				<div>Ready Player (FPO)</div>
-				<Group>
-					<Avatar src='src/assets/foxroyal.png' alt='SnuggleFox' />
-					<p style={{ fontSize: 'small' }}>{user}</p>
-				</Group>
+				<LogOutButton />
 			</Group>
 		</>
 	)

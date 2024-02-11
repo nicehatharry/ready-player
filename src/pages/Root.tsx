@@ -1,13 +1,14 @@
 import { Paper } from '@mantine/core'
-import { useState } from 'react'
-import { SignInModal, TopBar } from '../components'
+import { FC } from 'react'
+import { Outlet } from 'react-router-dom'
+import { LogInModal, TopBar } from '../components'
 
-export const Root = () => {
-	const [user, setUser] = useState('')
+export const Root: FC = () => {
 	return (
 		<Paper style={sideBars}>
-			<TopBar user={user} />
-			<SignInModal isOpen={!user} setUser={setUser} />
+			<TopBar />
+			<Outlet />
+			<LogInModal />
 		</Paper>
 	)
 }
