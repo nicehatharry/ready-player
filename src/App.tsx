@@ -3,6 +3,7 @@ import '@mantine/core/styles.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ErrorPage, Root } from './pages'
 import { getRoutes } from './routes'
+import { globalTheme } from './styles'
 
 const router = createBrowserRouter([
 	{
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-		<MantineProvider defaultColorScheme='dark'>
+		<MantineProvider defaultColorScheme='dark' theme={globalTheme}>
 			<RouterProvider router={router} />
 		</MantineProvider>
 	)
