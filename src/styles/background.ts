@@ -1,13 +1,13 @@
 export const background = {
-	background: '#f8b8d3',
+	background: '#d1d1e0',
 	height: '100vh',
 }
 
 export const crown = {
-	background: '#ff6b6b',
+	background: '#06c',
 }
 
 export const topBar = {
-	background: '#010',
+	background: '#f93',
 	padding: 20,
 }

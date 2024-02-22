@@ -20,4 +20,10 @@ const title = {
 	color: '#EEE',
 	fontSize: 48,
 	fontWeight: 700,
+	textShadow: `
+       3px 3px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000`,
 }
