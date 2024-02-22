@@ -1,30 +1,31 @@
 import { Button, Modal, PasswordInput, Stack, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { FC, useContext, useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { UserContext } from '../context'
+import { userDataAtom } from '../atoms'
+import { useAtom } from 'jotai'
 
 export const LogInModal: FC = () => {
-	const [, { open, close }] = useDisclosure(false)
-	const [userName, setUserName] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
-	const { user, setUser } = useContext(UserContext)
+	const [opened, { open, close }] = useDisclosure(true)
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const [, setUserData] = useAtom(userDataAtom)
 
 	const disableSignIn = useMemo(
-		() => !userName || !password,
-		[password, userName]
+		() => !username || !password,
+		[password, username]
 	)
 
 	const handleSignIn = () => {
-		setUser({ user: userName })
-		setUserName('')
+		setUserData({ username: username })
+		setUsername('')
 		setPassword('')
 		close()
 	}
 
 	return (
 		<Modal
-			opened={!user}
+			opened={opened}
 			onClose={open}
 			withCloseButton={false}
 			title='Ready Player?'>
@@ -33,9 +34,9 @@ export const LogInModal: FC = () => {
 					<TextInput
 						label='username / email'
 						placeholder='dingus mckraney'
-						value={userName}
+						value={username}
 						onChange={(e) => {
-							setUserName(e.currentTarget.value)
+							setUsername(e.currentTarget.value)
 						}}
 					/>
 					<PasswordInput

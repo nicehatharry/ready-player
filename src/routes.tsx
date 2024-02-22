@@ -9,6 +9,7 @@ interface Route {
 const OPEN_ROUTES: Route[] = [{ path: '/sign-up', element: <SignUp /> }]
 const PROTECTED_ROUTES: Route[] = [
 	{ path: '/dashboard', element: <>Dashboard</> },
+	{ path: '/', element: <></> },
 ]
 
 export const getRoutes = () => {

@@ -1,26 +1,28 @@
 import { Avatar, Button, Modal } from '@mantine/core'
-import { FC, useContext } from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { UserContext } from '../context'
+import { useAtom } from 'jotai'
+import { FC } from 'react'
+import { userDataAtom } from '../atoms'
 
 export const LogOutButton: FC = () => {
 	const [opened, { open, close }] = useDisclosure(false)
-	const { user, setUser } = useContext(UserContext)
+	const [user, setUser] = useAtom(userDataAtom)
 
 	const handleLogout = () => {
-		setUser({ user: undefined })
+		setUser(undefined)
 		close()
 	}
 	return (
 		<>
 			<Button
+				disabled={!user}
 				onClick={() => {
 					open()
 				}}
 				variant='transparent'
 				size='lg'>
 				<Avatar src='src/assets/foxroyal.png' alt='SnuggleFox' />
-				<p style={{ fontSize: 'small' }}>{user}</p>
+				<p style={{ fontSize: 'small' }}>{user?.username}</p>
 			</Button>
 			<Modal
 				opened={opened}

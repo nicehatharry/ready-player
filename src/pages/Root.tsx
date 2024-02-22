@@ -1,14 +1,13 @@
 import { Paper } from '@mantine/core'
 import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-import { LogInModal, TopBar } from '../components'
+import { TopBar } from '../components'
 
 export const Root: FC = () => {
 	return (
 		<Paper style={sideBars}>
 			<TopBar />
 			<Outlet />
-			<LogInModal />
 		</Paper>
 	)
 }

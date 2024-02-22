@@ -1,7 +1,5 @@
-import { FC, useContext } from 'react'
-import { UserContext } from '../context'
+import { FC } from 'react'
 
 export const SignUp: FC = () => {
-	// const { user, setUser } = useContext(UserContext)
 	return <>Sign Up Page</>
 }
