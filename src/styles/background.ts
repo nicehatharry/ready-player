@@ -1,6 +1,7 @@
 export const background = {
 	background: '#d1d1e0',
-	height: '100vh',
+	minHeight: '100vh',
+	paddingBottom: 80,
 }
 
 export const crown = {

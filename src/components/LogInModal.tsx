@@ -2,7 +2,7 @@ import { Button, Modal, PasswordInput, Stack, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { FC, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { userDataAtom } from '../atoms'
+import { EMPTY_USER, userDataAtom } from '../atoms'
 import { useAtom } from 'jotai'
 
 export const LogInModal: FC = () => {
@@ -17,7 +17,7 @@ export const LogInModal: FC = () => {
 	)
 
 	const handleSignIn = () => {
-		setUserData({ username: username })
+		setUserData({ ...EMPTY_USER, username: username })
 		setUsername('')
 		setPassword('')
 		close()

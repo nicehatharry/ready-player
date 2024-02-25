@@ -14,15 +14,9 @@ export async function addUserData({
 	password,
 	avatar,
 }: UserData): Promise<void> {
+	console.log('attempting user add')
+	console.log('Postgres URL', process?.env?.POSTGRES_URL)
 	const { rows } = await sql`
-    CREATE TABLE IF NOT EXISTS users (
-        email varchar(40) NOT NULL,
-        name varchar(40) NOT NULL,
-        password varchar(40) NOT NULL,
-        username varchar(40) NOT NULL,
-        avatar varchar(256)
-        CONSTRAINT email_username PRIMARY KEY (email,username)
-        ); 
     INSERT INTO users VALUES
         (${email}, ${name}, ${password}, ${username}, ${avatar});`
 
