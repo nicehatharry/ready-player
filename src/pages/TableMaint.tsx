@@ -1,35 +1,44 @@
 import { Button, Notification, Stack } from '@mantine/core'
-import { QueryResult, sql } from '@vercel/postgres'
 import { ReactElement, useState } from 'react'
+import { testFn } from '../postgres/engine'
 
 export const TableMaint = () => {
 	const [notifications, setNotifications] = useState<ReactElement[]>([])
 
 	const handleBuildUserTable = async () => {
-		let result: QueryResult
+		let result: unknown
 		try {
-			result = await sql`
-        CREATE TABLE IF NOT EXISTS users (
-            email varchar(40) NOT NULL,
-            name varchar(40) NOT NULL,
-            password varchar(40) NOT NULL,
-            username varchar(40) NOT NULL,
-            avatar varchar(256)
-            CONSTRAINT email_username PRIMARY KEY (email,username)
-            ); `
 			setNotifications((prev) => [
 				...prev,
-				<Notification title='Table Created'>
-					Rows: {result.rowCount}
-				</Notification>,
+				<Notification title='Table Created'>{String(result)}</Notification>,
 			])
 		} catch (err) {
 			console.error(err)
 			setNotifications((prev) => [
 				...prev,
 				<Notification color='red' title='ERROR'>
-					{result.command}
-					{String(err)}
+					{String(result)}
+					ERROR: {String(err)}
+				</Notification>,
+			])
+		}
+	}
+
+	const handleTestFn = async () => {
+		let result: unknown
+		try {
+			result = testFn()
+			setNotifications((prev) => [
+				...prev,
+				<Notification title='Test'>{String(result)}</Notification>,
+			])
+		} catch (err) {
+			console.error(err)
+			setNotifications((prev) => [
+				...prev,
+				<Notification color='red' title='ERROR'>
+					{String(result)}
+					ERROR: {String(err)}
 				</Notification>,
 			])
 		}
@@ -38,6 +47,7 @@ export const TableMaint = () => {
 	return (
 		<div style={pageStyle}>
 			<Stack>
+				<Button onClick={handleTestFn}>Test</Button>
 				<Button onClick={handleBuildUserTable}>Build Users table</Button>
 				{...notifications}
 			</Stack>
