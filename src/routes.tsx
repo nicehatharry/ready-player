@@ -1,12 +1,16 @@
 import { ProtectedRoute } from './components'
 import { SignUp } from './pages'
+import { TableMaint } from './pages/TableMaint'
 
 interface Route {
 	path: string
 	element: JSX.Element
 }
 
-const OPEN_ROUTES: Route[] = [{ path: '/sign-up', element: <SignUp /> }]
+const OPEN_ROUTES: Route[] = [
+	{ path: '/sign-up', element: <SignUp /> },
+	{ path: '/tables', element: <TableMaint /> },
+]
 const PROTECTED_ROUTES: Route[] = [
 	{ path: '/dashboard', element: <>Dashboard</> },
 	{ path: '/', element: <></> },
