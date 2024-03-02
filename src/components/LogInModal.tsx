@@ -1,26 +1,47 @@
-import { Button, Modal, PasswordInput, Stack, TextInput } from '@mantine/core'
+import {
+	Alert,
+	Button,
+	Modal,
+	PasswordInput,
+	Stack,
+	TextInput,
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { FC, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { EMPTY_USER, userDataAtom } from '../atoms'
+import { userDataAtom } from '../atoms'
 import { useAtom } from 'jotai'
+import { getUserData } from '../postgres'
 
 export const LogInModal: FC = () => {
 	const [opened, { open, close }] = useDisclosure(true)
-	const [username, setUsername] = useState('')
-	const [password, setPassword] = useState('')
+	const [userId, setUserId] = useState<string>()
+	const [error, setError] = useState<string>()
+	const [password, setPassword] = useState<string>()
 	const [, setUserData] = useAtom(userDataAtom)
 
-	const disableSignIn = useMemo(
-		() => !username || !password,
-		[password, username]
-	)
+	const disableSignIn = useMemo(() => !userId || !password, [password, userId])
 
-	const handleSignIn = () => {
-		setUserData({ ...EMPTY_USER, username: username })
-		setUsername('')
-		setPassword('')
-		close()
+	const handleSignIn = async () => {
+		if (!userId || !password) return
+		await getUserData(userId, password)
+			.then((user) => {
+				if (user) {
+					console.log(user)
+					setUserData({
+						username: user.username,
+						email: user.email,
+					})
+					setUserId('')
+					setPassword('')
+					close()
+				} else {
+					setError('username/email and password combination do not match')
+				}
+			})
+			.catch((err) => {
+				setError(`ERROR: ${err}`)
+			})
 	}
 
 	return (
@@ -34,9 +55,9 @@ export const LogInModal: FC = () => {
 					<TextInput
 						label='username / email'
 						placeholder='dingus mckraney'
-						value={username}
+						value={userId}
 						onChange={(e) => {
-							setUsername(e.currentTarget.value)
+							setUserId(e.currentTarget.value)
 						}}
 					/>
 					<PasswordInput
@@ -51,9 +72,14 @@ export const LogInModal: FC = () => {
 					<Link to='/sign-up' style={{ fontSize: 'small' }}>
 						Sign Up...
 					</Link>
-					<Button type='submit' disabled={disableSignIn} onClick={handleSignIn}>
+					<Button disabled={disableSignIn} onClick={handleSignIn}>
 						Sign In
 					</Button>
+					{error && (
+						<Alert color='red' variant='outline'>
+							{error}
+						</Alert>
+					)}
 				</Stack>
 			</form>
 		</Modal>

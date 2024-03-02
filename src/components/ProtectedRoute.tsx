@@ -5,6 +5,6 @@ import { userDataAtom } from '../atoms'
 
 export const ProtectedRoute: FC<{ children: ReactNode }> = ({ children }) => {
 	const [user] = useAtom(userDataAtom)
-	console.log('User', user)
+	console.log('Protected Route User', user)
 	return user ? children : <LogInModal />
 }
