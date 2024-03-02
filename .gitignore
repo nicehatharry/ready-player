@@ -5,6 +5,8 @@ dist
 .vscode/*
 !.vscode/extensions.json
 yarn.lock
+DEV_NOTES.md
 
 .vercel
+api/
 scratch/
