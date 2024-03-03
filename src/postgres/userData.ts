@@ -44,3 +44,8 @@ export async function createUserTable(): Promise<string> {
 		return 'failure'
 	}
 }
+
+// TODO: try this out
+export async function test(): Promise<string> {
+	return `Hello from ${process.env.POSTGRES_USER}!`
+}

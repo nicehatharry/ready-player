@@ -11,7 +11,7 @@ import { FC, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { userDataAtom } from '../atoms'
 import { useAtom } from 'jotai'
-import { getUserData } from '../postgres'
+import { getUserData, test } from '../postgres'
 
 export const LogInModal: FC = () => {
 	const [opened, { open, close }] = useDisclosure(true)
@@ -21,6 +21,11 @@ export const LogInModal: FC = () => {
 	const [, setUserData] = useAtom(userDataAtom)
 
 	const disableSignIn = useMemo(() => !userId || !password, [password, userId])
+
+	const handleTest = async () => {
+		const response = await test()
+		setError(response)
+	}
 
 	const handleSignIn = async () => {
 		if (!userId || !password) return
@@ -75,6 +80,7 @@ export const LogInModal: FC = () => {
 					<Button disabled={disableSignIn} onClick={handleSignIn}>
 						Sign In
 					</Button>
+					<Button onClick={handleTest}>Test</Button>
 					{error && (
 						<Alert color='red' variant='outline'>
 							{error}
